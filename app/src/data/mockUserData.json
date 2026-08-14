@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "johndoe@company.com",
+    "password": "password111",
+    "role": "READ_ONLY"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "janesmith@company.com",
+    "password": "password222",
+    "role": "READ_WRITE"
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "email": "michaeljohnson@company.com",
+    "password": "password333",
+    "role": "READ_ONLY"
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "email": "emilydavis@company.com",
+    "password": "password444",
+    "role": "READ_ONLY"
+  },
+  {
+    "id": 5,
+    "name": "David Wilson",
+    "email": "davidwilson@company.com",
+    "password": "password555",
+    "role": "READ_ONLY"
+  }
+]

@@ -15,27 +15,31 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import { validateMfa } from '../../utils/inputValidation';
-import { AuthCard as Card, AuthContainer as MultiFactorAuthContainer } from '../../components/AuthLayout';
+import { AuthCard as Card, AuthContainer as MultiFactorAuthContainer } from '../../components/Layout';
 
 export default function MultiFactorAuth(props) {
   const [mfaError, setMfaError] = React.useState(false);
   const [mfaErrorMessage, setMfaErrorMessage] = React.useState('');
   const [resend, setResend] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   const handleResend = () => {
     setResend(true);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const isValid = validateInputs();
     if (!isValid) {
       event.preventDefault();
+      setLoading(false);
       return;
     }
     event.preventDefault();
+    setLoading(false);
     navigate('/dashboard');
-    const data = new FormData(event.currentTarget);
   };
 
   const validateInputs = () => {
@@ -76,7 +80,6 @@ export default function MultiFactorAuth(props) {
           </p>
           <Box
             component="form"
-            onSubmit={handleSubmit}
             noValidate
             sx={{
               display: 'flex',
@@ -105,8 +108,10 @@ export default function MultiFactorAuth(props) {
             <Button
               type="submit"
               fullWidth
+              loading={loading}
+              loadingPosition="start"
               variant="contained"
-              onClick={validateInputs}
+              onClick={handleSubmit}
             >
               Verify
             </Button>

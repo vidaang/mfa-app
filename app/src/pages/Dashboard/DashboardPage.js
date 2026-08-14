@@ -12,15 +12,12 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
 import Header from '../../components/Header'
-import CardGroup from '../../components/CardGroup';
-import ActionToolbar from '../../components/ActionToolbar';
+import CardGroup from '../../components/card/CardGroup';
+import ActionToolbar from '../../components/toolbar/ActionToolbar';
 import { canWrite } from '../../utils/roleAccess';
 import { getCurrentUser } from '../../utils/userStore';
 import DataTable from '../../components/tables/DataTable';
-import { DashboardContainer } from '../../components/Layout';
 import tableData from '../../data/mockTableData.json';
 import tableHeaders from '../../data/mockTableHeaders.json';
 
@@ -37,7 +34,7 @@ export default function Dashboard(props) {
     <>
       <CssBaseline enableColorScheme />
       <Header />
-      <DashboardContainer direction="column" spacing={2}>
+      <Stack className="dashboard-container" direction="column" spacing={2}>
         <Typography variant="h4">
           Employee Dashboard
         </Typography>
@@ -53,7 +50,7 @@ export default function Dashboard(props) {
         </Typography>
         {hasWriteAccess && <ActionToolbar />}
         <DataTable rowsProp={tableData} headersProp={tableHeaders} canEdit={hasWriteAccess} />
-      </DashboardContainer>
+      </Stack>
     </>
   );
 }

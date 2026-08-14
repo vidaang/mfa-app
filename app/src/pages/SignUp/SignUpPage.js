@@ -12,11 +12,9 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
 import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateName } from '../../utils/inputValidation';
-import { AuthCard as Card, AuthContainer as SignUpContainer } from '../../components/Layout';
 
 export default function SignUp(props) {
   const [emailError, setEmailError] = React.useState(false);
@@ -83,8 +81,8 @@ export default function SignUp(props) {
   return (
   <>
     <CssBaseline enableColorScheme />
-      <SignUpContainer direction="column" sx={{ justifyContent: 'space-between' }}>
-        <Card variant="outlined">
+      <Stack className="auth-container" direction="column" sx={{ justifyContent: 'space-between' }}>
+        <Card className="auth-card" variant="outlined">
           <Typography
             component="h1"
             variant="h4"
@@ -188,7 +186,7 @@ export default function SignUp(props) {
             </Typography>
           </Box>
         </Card>
-      </SignUpContainer>
+      </Stack>
     </>
   );
 }

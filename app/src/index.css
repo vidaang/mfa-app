@@ -10,4 +10,55 @@ code {
     monospace;
 }
 
-/* migrate the mui card and container styles in this file */
+.auth-container,
+.dashboard-container {
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding: 16px;
+}
+
+.auth-container::before,
+.dashboard-container::before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%));
+  background-repeat: no-repeat;
+}
+
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 100%;
+  padding: 32px;
+  gap: 16px;
+  margin: auto;
+  box-shadow: hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px;
+}
+
+@media (min-width: 600px) {
+  .auth-container,
+  .dashboard-container {
+    padding: 32px;
+  }
+
+  .auth-card {
+    max-width: 450px;
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
+  .auth-container::before,
+  .dashboard-container::before {
+    background-image: radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%));
+  }
+
+  .auth-card {
+    box-shadow: hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px;
+  }
+} */

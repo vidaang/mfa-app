@@ -12,10 +12,8 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
 import { validateMfa } from '../../utils/inputValidation';
-import { AuthCard as Card, AuthContainer as MultiFactorAuthContainer } from '../../components/Layout';
 
 export default function MultiFactorAuth(props) {
   const [mfaError, setMfaError] = React.useState(false);
@@ -62,8 +60,8 @@ export default function MultiFactorAuth(props) {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <MultiFactorAuthContainer direction="column">
-        <Card variant="outlined">
+      <Stack className="auth-container" direction="column">
+        <Card className="auth-card" variant="outlined">
           <Typography
             component="h1"
             variant="h4"
@@ -126,7 +124,7 @@ export default function MultiFactorAuth(props) {
             </Link>
           </Box>
         </Card>
-      </MultiFactorAuthContainer>
+      </Stack>
     </>
   );
 }

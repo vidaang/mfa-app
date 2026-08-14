@@ -12,13 +12,11 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
 import ForgotPassword from '../../components/dialog-box/ForgotPassword';
 import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateSignIn } from '../../utils/inputValidation';
 import { setCurrentUserByEmail } from '../../utils/userStore';
-import { AuthCard as Card, AuthContainer as LoginContainer } from '../../components/Layout';
 
 
 export default function Login(props) {
@@ -103,8 +101,8 @@ export default function Login(props) {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <LoginContainer direction="column" sx={{ justifyContent: 'space-between' }}>
-        <Card variant="outlined">
+      <Stack className="auth-container" direction="column" sx={{ justifyContent: 'space-between' }}>
+        <Card className="auth-card" variant="outlined">
           <Typography
             component="h1"
             variant="h4"
@@ -212,7 +210,7 @@ export default function Login(props) {
             </Typography>
           </Box>
         </Card>
-      </LoginContainer>
+      </Stack>
     </>
   );
 }

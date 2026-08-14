@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,50 +14,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from '../../components/ForgotPassword';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../../components/CustomIcons';
+import ForgotPassword from '../../components/dialog-box/ForgotPassword';
+import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
+import { validateEmail, validatePassword, validateSignIn } from '../../utils/inputValidation';
+import { AuthCard as Card, AuthContainer as LoginContainer } from '../../components/AuthLayout';
 
-const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '450px',
-  },
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  ...theme.applyStyles('dark', {
-    boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  }),
-}));
-
-const LoginContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
-  padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(4),
-  },
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
-}));
 
 export default function Login(props) {
   const [emailError, setEmailError] = React.useState(false);
@@ -65,6 +26,7 @@ export default function Login(props) {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,42 +37,60 @@ export default function Login(props) {
   };
 
   const handleSubmit = (event) => {
-    if (emailError || passwordError) {
+    const isValid = validateInputs();
+    if (!isValid) {
       event.preventDefault();
       return;
     }
+
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const emailVal = email?.value || '';
+    const passwordVal = password?.value || '';
+
+    const signIn = validateSignIn(emailVal, passwordVal);
+    if (!signIn.valid) {
+      event.preventDefault();
+      if (signIn.field === 'email') {
+        setEmailError(true);
+        setEmailErrorMessage(signIn.message);
+      } else {
+        setPasswordError(true);
+        setPasswordErrorMessage(signIn.message);
+      }
+      return;
+    }
+    event.preventDefault();
+    navigate('/mfa');
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   const validateInputs = () => {
     const email = document.getElementById('email');
     const password = document.getElementById('password');
 
-    let isValid = true;
+    const emailVal = email?.value || '';
+    const passwordVal = password?.value || '';
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    const emailRes = validateEmail(emailVal);
+    if (!emailRes.valid) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
+      setEmailErrorMessage(emailRes.message);
     } else {
       setEmailError(false);
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    const passRes = validatePassword(passwordVal);
+    if (!passRes.valid) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
+      setPasswordErrorMessage(passRes.message);
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
     }
 
-    return isValid;
+    return emailRes.valid && passRes.valid;
   };
 
   return (
@@ -118,7 +98,6 @@ export default function Login(props) {
       <CssBaseline enableColorScheme />
       <LoginContainer direction="column" sx={{ justifyContent: 'space-between' }}>
         <Card variant="outlined">
-          <SitemarkIcon />
           <Typography
             component="h1"
             variant="h4"

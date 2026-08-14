@@ -14,49 +14,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../../components/CustomIcons';
+import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
+import { validateEmail, validatePassword, validateName } from '../../utils/inputValidation';
+import { AuthCard as Card, AuthContainer as SignUpContainer } from '../../components/AuthLayout';
 
-const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  [theme.breakpoints.up('sm')]: {
-    width: '450px',
-  },
-  ...theme.applyStyles('dark', {
-    boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  }),
-}));
-
-const SignUpContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
-  padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(4),
-  },
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
-}));
+// Reusable Card and Container provided by components/AuthLayout
 
 export default function SignUp(props) {
   const [emailError, setEmailError] = React.useState(false);
@@ -71,40 +33,43 @@ export default function SignUp(props) {
     const password = document.getElementById('password');
     const name = document.getElementById('name');
 
-    let isValid = true;
+    const emailVal = email?.value || '';
+    const passwordVal = password?.value || '';
+    const nameVal = name?.value || '';
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    const emailRes = validateEmail(emailVal);
+    if (!emailRes.valid) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
+      setEmailErrorMessage(emailRes.message);
     } else {
       setEmailError(false);
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    const passRes = validatePassword(passwordVal);
+    if (!passRes.valid) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
+      setPasswordErrorMessage(passRes.message);
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
     }
 
-    if (!name.value || name.value.length < 1) {
+    const nameRes = validateName(nameVal);
+    if (!nameRes.valid) {
       setNameError(true);
-      setNameErrorMessage('Name is required.');
-      isValid = false;
+      setNameErrorMessage(nameRes.message);
     } else {
       setNameError(false);
       setNameErrorMessage('');
     }
 
-    return isValid;
+    return emailRes.valid && passRes.valid && nameRes.valid;
   };
 
   const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
+    const isValid = validateInputs();
+    if (!isValid) {
       event.preventDefault();
       return;
     }
@@ -122,7 +87,6 @@ export default function SignUp(props) {
     <CssBaseline enableColorScheme />
       <SignUpContainer direction="column" sx={{ justifyContent: 'space-between' }}>
         <Card variant="outlined">
-          <SitemarkIcon />
           <Typography
             component="h1"
             variant="h4"

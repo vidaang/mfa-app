@@ -5,20 +5,54 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Technologies used
 - React.js 19
 - MUI 9
-- Jest 
+- Jest 7
+- Eslint 9
 ## Setup/install instructions
-1. `npm install`
+Run `npm install` to install necessary packages. Or `npm ci`.
 ## Local run instructions
 1. `npm run build`
 2. `npm start`
+3. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
 ## Mock user credentials & roles
 Users have 3 critical attributes for establishing their credentials and role:
 1. `email`: Serves as the username
 2. `password`: Serves as authentication
 3. `role`: Determines the user's role between 2 options (read/write)
-All example mock user credentials details are found in `app/src/data/mockUserData.json`
+
+### User with read access
+Username: `johndoe@company.com`
+
+Password: `password111`
+
+### User with write access
+Username: `janesmith@company.com`
+
+Password: `password222`
+
+*All example mock user credentials details are found in `app/src/data/mockUserData.json`
 
 ## How to test the login/MFA flow
+### Testing the login flow
+1. Navigate to the login screen (on initial load)
+2. In the email field enter `janesmith@company.com`
+3. In the password field enter `pass`
+    
+    *Note the invalid password format eror on the screen
+5. In the password field enter `password`
+    
+    *Note the incorrect password error on the screen
+7. In the password field enter `password222`
+8. You have successfuly logged in! You should be redirected to the MFA screen.
+
+# Testing the MFA flow
+1. Upon successful login, in the MFA field enter `123`
+
+    *Note the invalid MFA format error on the screen
+2. In the MFA field enter `123455`
+
+    *Note the incorrect MFA error on the screen
+3. In the MFA field enter `123456`
+4. You have successfuly passed the MFA check! You should be redirected to the dashboard screen.
 
 ## Key design decisions and assumptions
 
@@ -31,17 +65,17 @@ it adheres to WAI-ARIA 1.2 standard.
 Data from APIs are commonly found in JSON format. By ingesting the data via json files if a working API
 were to be integrated into the application in the future it would be easy to integrate.
 ### 3. Utilities for reusablity
-Instead of writing validation logic utils were implemented instead to be easilt reused throughout the application.
+Instead of writing validation logic for each component utils were implemented instead to be easily reused throughout the application.
 Things such as form validation, user access validation, etc.
 
 
 ## Known limitations
 
 ### 1. Using the MUI component library
-Although MUI is widely available and accessible it may not fit all the necessary needs to enterprise use.
-For example, a vulnerability mave be found in a MUI version that prohibits its user it the enterprise due
+Although MUI is widely available and accessible it may not fit all the necessary needs for enterprise use.
+For example, a vulnerability mave be found in a MUI version that prohibits its use in the enterprise due
 to security risk. In this case an alternative solution would be finding a component library tht adheres to
-the security risk appetite or building a custom component library.
+the security risk appetite or building an internal custom component library.
 ### 2. Window Testing
 This was only tested on a 16:9 horizontal layout on Chrome. It is not fully tested in other browsers
 and or devices.

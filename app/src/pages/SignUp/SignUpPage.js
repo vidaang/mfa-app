@@ -16,9 +16,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateName } from '../../utils/inputValidation';
-import { AuthCard as Card, AuthContainer as SignUpContainer } from '../../components/AuthLayout';
-
-// Reusable Card and Container provided by components/AuthLayout
+import { AuthCard as Card, AuthContainer as SignUpContainer } from '../../components/Layout';
 
 export default function SignUp(props) {
   const [emailError, setEmailError] = React.useState(false);

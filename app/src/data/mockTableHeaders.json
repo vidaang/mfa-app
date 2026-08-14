@@ -1,0 +1,57 @@
+
+[
+	{
+		"field": "name",
+		"headerName": "Name",
+		"width": 180,
+		"editable": true
+	},
+
+	{
+		"field": "role",
+		"headerName": "Role",
+		"width": 220,
+		"editable": true
+	},
+    {
+        "field": "city",
+        "headerName": "City",
+        "width": 180,
+        "editable": true
+    },
+    {
+        "field": "state",
+        "headerName": "State",
+        "width": 180,
+        "editable": true
+    },
+    {
+        "field": "country",
+        "headerName": "Country",
+        "width": 180,
+        "editable": true
+    },
+    {
+		"field": "age",
+		"headerName": "Age",
+		"type": "number",
+		"width": 80,
+		"align": "left",
+		"headerAlign": "left",
+		"editable": true
+	},
+	{
+		"field": "joinDate",
+		"headerName": "Join Date",
+		"type": "date",
+		"width": 180,
+		"editable": true
+	},
+    {
+        "field": "compensation",
+        "headerName": "Compensation",
+        "type": "number",
+        "width": 180,
+        "editable": true
+    }
+]

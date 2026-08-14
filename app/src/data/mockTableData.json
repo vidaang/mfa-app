@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "age": 25,
+    "joinDate": "2022-01-15T00:00:00.000Z",
+    "role": "Business Analyst",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "compensation": 80000
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "age": 30,
+    "joinDate": "2021-06-20T00:00:00.000Z",
+    "role": "Software Engineer",
+    "city": "Seattle",
+    "state": "WA",
+    "country": "USA",
+    "compensation": 120000
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "age": 28,
+    "joinDate": "2020-09-10T00:00:00.000Z",
+    "role": "Project Manager",
+    "city": "Los Angeles",
+    "state": "CA",
+    "country": "USA",
+    "compensation": 110000
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "age": 32,
+    "joinDate": "2019-03-05T00:00:00.000Z",
+    "role": "UX Designer",
+    "city": "Chicago",
+    "state": "IL",
+    "country": "USA",
+    "compensation": 95000
+  },
+  {
+    "id": 5,
+    "name": "David Wilson",
+    "age": 27,
+    "joinDate": "2021-11-12T00:00:00.000Z",
+    "role": "Data Scientist",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "USA",
+    "compensation": 130000
+  },
+  {
+    "id": 6,
+    "name": "Sarah Brown",
+    "age": 29,
+    "joinDate": "2020-07-18T00:00:00.000Z",
+    "role": "Marketing Specialist",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "compensation": 85000
+  },
+  {
+    "id": 7,
+    "name": "Daniel Lee",
+    "age": 31,
+    "joinDate": "2018-12-02T00:00:00.000Z",
+    "role": "Sales Manager",
+    "city": "Boston",
+    "state": "MA",
+    "country": "USA",
+    "compensation": 105000
+  },
+  {
+    "id": 8,
+    "name": "Olivia Martinez",
+    "age": 26,
+    "joinDate": "2021-04-25T00:00:00.000Z",
+    "role": "Content Writer",
+    "city": "Denver",
+    "state": "CO",
+    "country": "USA",
+    "compensation": 70000
+  }
+]

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
-import './App.css';
 import { clearCurrentUser } from './utils/userStore';
 
 class ErrorBoundary extends React.Component {

@@ -17,7 +17,8 @@ import { styled } from '@mui/material/styles';
 import ForgotPassword from '../../components/dialog-box/ForgotPassword';
 import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateSignIn } from '../../utils/inputValidation';
-import { AuthCard as Card, AuthContainer as LoginContainer } from '../../components/AuthLayout';
+import { setCurrentUserByEmail } from '../../utils/userStore';
+import { AuthCard as Card, AuthContainer as LoginContainer } from '../../components/Layout';
 
 
 export default function Login(props) {
@@ -26,6 +27,7 @@ export default function Login(props) {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   const handleClickOpen = () => {
@@ -36,10 +38,13 @@ export default function Login(props) {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const isValid = validateInputs();
     if (!isValid) {
       event.preventDefault();
+      setLoading(false);
       return;
     }
 
@@ -58,11 +63,13 @@ export default function Login(props) {
         setPasswordError(true);
         setPasswordErrorMessage(signIn.message);
       }
+      setLoading(false);
       return;
     }
     event.preventDefault();
+    setCurrentUserByEmail(emailVal);
     navigate('/mfa');
-    const data = new FormData(event.currentTarget);
+    setLoading(false);
   };
 
   const validateInputs = () => {
@@ -107,7 +114,6 @@ export default function Login(props) {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
             noValidate
             sx={{
               display: 'flex',
@@ -158,8 +164,10 @@ export default function Login(props) {
             <Button
               type="submit"
               fullWidth
+              loading={loading}
+              loadingPosition="start"
               variant="contained"
-              onClick={validateInputs}
+              onClick={handleSubmit}
             >
               Login
             </Button>

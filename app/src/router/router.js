@@ -3,6 +3,7 @@ import Login from "../pages/Login/LoginPage";
 import SignUp from "../pages/SignUp/SignUpPage";
 import MultiFactor from "../pages/MultiFactorAuth/MultiFactorAuthPage";
 import Dashboard from "../pages/Dashboard/DashboardPage";
+import NotFound from "../pages/NotFound/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/404",
+    element: <NotFound />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

@@ -3,32 +3,38 @@
 	{
 		"field": "name",
 		"headerName": "Name",
-		"width": 180,
+		"width": 200,
 		"editable": true
 	},
 
 	{
 		"field": "role",
 		"headerName": "Role",
-		"width": 220,
+		"width": 200,
 		"editable": true
 	},
     {
         "field": "city",
         "headerName": "City",
-        "width": 180,
+        "width": 200,
         "editable": true
     },
     {
         "field": "state",
         "headerName": "State",
-        "width": 180,
+        "width": 200,
         "editable": true
     },
     {
         "field": "country",
         "headerName": "Country",
-        "width": 180,
+        "width": 200,
+        "editable": true
+    },
+    {
+        "field": "phoneNumber",
+        "headerName": "Phone Number",
+        "width": 200,
         "editable": true
     },
     {
@@ -40,18 +46,13 @@
 		"headerAlign": "left",
 		"editable": true
 	},
-	{
-		"field": "joinDate",
-		"headerName": "Join Date",
-		"type": "date",
-		"width": 180,
-		"editable": true
-	},
     {
         "field": "compensation",
         "headerName": "Compensation",
-        "type": "number",
-        "width": 180,
+        "type": "currency",
+        "width": 200,
+        "align": "left",
+		"headerAlign": "left",
         "editable": true
     }
 ]

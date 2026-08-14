@@ -24,7 +24,8 @@ const randomRole = () => {
 };
 
 function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
+  const { setRows, setRowModesModel, canEdit } = props;
+  if (!canEdit) return null;
 
   const handleClick = () => {
     const id = randomId();
@@ -44,7 +45,7 @@ function EditToolbar(props) {
   );
 }
 
-function DataTable({ rowsProp, headersProp }) {
+function DataTable({ rowsProp, headersProp, canEdit = true }) {
   const [rows, setRows] = React.useState(rowsProp || []);
   const headersToUse = headersProp ?? [];
   const [rowModesModel, setRowModesModel] = React.useState({});
@@ -89,67 +90,62 @@ function DataTable({ rowsProp, headersProp }) {
     setRowModesModel(newRowModesModel);
   };
 
-  // Build static columns from JSON headers, injecting functions where needed
   const staticColumns = headersToUse.map((h) => {
-    const col = { ...h };
-    if (col.type === 'date') {
-      col.valueGetter = (params) => {
-        const v = params.value;
-        if (!v) return null;
-        return v instanceof Date ? v : new Date(v);
-      };
-    }
-    return col;
+    return { ...h };
   });
 
-  const actionsColumn = {
-    field: 'actions',
-    type: 'actions',
-    headerName: 'Actions',
-    width: 100,
-    cellClassName: 'actions',
-    getActions: ({ id }) => {
-      const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+  let columns = [...staticColumns];
+  if (canEdit) {
+    const actionsColumn = {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
-      if (isInEditMode) {
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
         return [
           <GridActionsCellItem
-            icon={<SaveIcon />}
-            label="Save"
-            sx={{
-              color: 'primary.main',
-            }}
-            onClick={handleSaveClick(id)}
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
           />,
           <GridActionsCellItem
-            icon={<CancelIcon />}
-            label="Cancel"
-            className="textPrimary"
-            onClick={handleCancelClick(id)}
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
             color="inherit"
           />,
         ];
-      }
+      },
+    };
 
-      return [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ];
-    },
-  };
-
-  const columns = [...staticColumns, actionsColumn];
+    // place actions column at the far left
+    columns = [actionsColumn, ...staticColumns];
+  }
 
   return (
     <Box
@@ -167,17 +163,14 @@ function DataTable({ rowsProp, headersProp }) {
       <DataGrid
         rows={rows}
         columns={columns}
-        editMode="row"
+        editMode={canEdit ? 'row' : undefined}
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar,
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
+        isCellEditable={() => canEdit}
+        slots={canEdit ? { toolbar: EditToolbar } : {}}
+        slotProps={canEdit ? { toolbar: { setRows, setRowModesModel, canEdit } } : {}}
       />
     </Box>
   );

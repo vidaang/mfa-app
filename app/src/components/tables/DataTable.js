@@ -13,15 +13,8 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-import {
-  randomId,
-  randomArrayItem,
-} from '@mui/x-data-grid-generator';
-
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
+import { randomId } from '@mui/x-data-grid-generator';
+import { gray } from '../../theme/themePrimitives';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel, canEdit } = props;
@@ -152,6 +145,9 @@ function DataTable({ rowsProp, headersProp, canEdit = true }) {
       sx={{
         height: 500,
         width: '100%',
+        border: `1px solid ${gray[700]}`,
+        borderRadius: 1,
+        overflow: 'hidden',
         '& .actions': {
           color: 'text.secondary',
         },

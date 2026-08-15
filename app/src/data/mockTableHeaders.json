@@ -41,7 +41,7 @@
 		"field": "age",
 		"headerName": "Age",
 		"type": "number",
-		"width": 80,
+		"width": 150,
 		"align": "left",
 		"headerAlign": "left",
 		"editable": true

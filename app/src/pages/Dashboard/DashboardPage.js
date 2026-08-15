@@ -12,6 +12,7 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import AppTheme from '../../theme/AppTheme';
 import Header from '../../components/Header'
 import CardGroup from '../../components/card/CardGroup';
 import ActionToolbar from '../../components/toolbar/ActionToolbar';
@@ -31,7 +32,7 @@ export default function Dashboard(props) {
   }, []);
 
   return (
-    <>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Header />
       <Stack className="dashboard-container" direction="column" spacing={2}>
@@ -51,6 +52,6 @@ export default function Dashboard(props) {
         {hasWriteAccess && <ActionToolbar />}
         <DataTable rowsProp={tableData} headersProp={tableHeaders} canEdit={hasWriteAccess} />
       </Stack>
-    </>
+    </AppTheme>
   );
 }

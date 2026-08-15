@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
+import AppTheme from '../../theme/AppTheme';
 import ForgotPassword from '../../components/dialog-box/ForgotPassword';
 import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateSignIn } from '../../utils/inputValidation';
@@ -99,7 +100,7 @@ export default function Login(props) {
   };
 
   return (
-    <>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Stack className="auth-container" direction="column" sx={{ justifyContent: 'space-between' }}>
         <Card className="auth-card" variant="outlined">
@@ -211,6 +212,6 @@ export default function Login(props) {
           </Box>
         </Card>
       </Stack>
-    </>
+    </AppTheme>
   );
 }

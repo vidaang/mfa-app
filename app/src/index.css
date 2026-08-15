@@ -52,7 +52,7 @@ code {
   }
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   .auth-container::before,
   .dashboard-container::before {
     background-image: radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%));
@@ -61,4 +61,4 @@ code {
   .auth-card {
     box-shadow: hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px;
   }
-} */
+}

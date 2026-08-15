@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
+import AppTheme from '../../theme/AppTheme';
 import { validateMfa } from '../../utils/inputValidation';
 
 export default function MultiFactorAuth(props) {
@@ -58,7 +59,7 @@ export default function MultiFactorAuth(props) {
   };
 
   return (
-    <>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Stack className="auth-container" direction="column">
         <Card className="auth-card" variant="outlined">
@@ -125,6 +126,6 @@ export default function MultiFactorAuth(props) {
           </Box>
         </Card>
       </Stack>
-    </>
+    </AppTheme>
   );
 }

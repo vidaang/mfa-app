@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom'
 import { clearCurrentUser } from '../utils/userStore'
+import { gray } from '../theme/themePrimitives';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -42,7 +43,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
@@ -66,8 +66,18 @@ function Header() {
 	}
 
 	return (
-		<AppBar position="sticky" sx={{ top: 0, zIndex: (theme) => theme.zIndex.appBar }}>
-			<Toolbar>
+		<AppBar 
+			position="sticky" 
+			sx={{ 
+				top: 0, 
+				zIndex: (theme) => theme.zIndex.appBar,
+			}}
+		>
+			<Toolbar
+						sx={{ 
+				backgroundColor: gray[900]
+			}}
+			>
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					MFA Read & Write
 				</Typography>

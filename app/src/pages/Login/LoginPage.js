@@ -114,6 +114,7 @@ export default function Login(props) {
           <Box
             component="form"
             noValidate
+            onSubmit={handleSubmit}
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -166,7 +167,6 @@ export default function Login(props) {
               loading={loading}
               loadingPosition="start"
               variant="contained"
-              onClick={handleSubmit}
             >
               Login
             </Button>

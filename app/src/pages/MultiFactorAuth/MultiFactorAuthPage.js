@@ -80,6 +80,7 @@ export default function MultiFactorAuth(props) {
           <Box
             component="form"
             noValidate
+            onSubmit={handleSubmit}
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -110,7 +111,6 @@ export default function MultiFactorAuth(props) {
               loading={loading}
               loadingPosition="start"
               variant="contained"
-              onClick={handleSubmit}
             >
               Verify
             </Button>

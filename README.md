@@ -24,10 +24,14 @@ Username: `johndoe@company.com`
 
 Password: `password111`
 
+MFA Code: `123456`
+
 ### User with write access
 Username: `janesmith@company.com`
 
 Password: `password222`
+
+MFA Code: `123456`
 
 *All example mock user credentials details are found in `app/src/data/mockUserData.json`
 
@@ -44,7 +48,7 @@ Password: `password222`
 7. In the password field enter `password222`
 8. You have successfuly logged in! You should be redirected to the MFA screen.
 
-# Testing the MFA flow
+### Testing the MFA flow
 1. Upon successful login, in the MFA field enter `123`
 
     *Note the invalid MFA format error on the screen
@@ -79,6 +83,11 @@ the security risk appetite or building an internal custom component library.
 ### 2. Window Testing
 This was only tested on a 16:9 horizontal layout on Chrome. It is not fully tested in other browsers
 and or devices.
+### 3. Unit Testing
+Testing was focused on the core functionality of the application which is limited to
+- Handling field validation errors for the Login & MFA pages
+- Displaying the correct read & write views for the Dashboard page
+- Redirecting to 404 screen if an error is caught in the application
 
 ## Available Scripts
 

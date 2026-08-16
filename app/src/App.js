@@ -19,43 +19,35 @@ class ErrorBoundary extends React.Component {
 
 function App() {
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
+    const isPageRefresh = () => {
       try {
-        const inputs = document.querySelectorAll('input, textarea, select');
-        let hasValue = false;
-        inputs.forEach((el) => {
-          if (!el.disabled && el.type !== 'hidden' && el.value) hasValue = true;
-        });
-        if (hasValue) {
-          e.preventDefault();
-          e.returnValue = '';
+        const navEntries = performance.getEntriesByType?.('navigation');
+        if (navEntries && navEntries[0] && navEntries[0].type === 'reload') {
+          return true;
+        }
+
+        // fallback for older browsers
+        // @ts-ignore
+        if (performance && performance.navigation && performance.navigation.type === 1) {
+          return true;
         }
       } catch (err) {
         // ignore
       }
-    };
 
-    const isReload = () => {
-      try {
-        const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
-        if (navEntries && navEntries[0] && navEntries[0].type === 'reload') return true;
-        // fallback for older browsers
-        // @ts-ignore
-        if (performance && performance.navigation && performance.navigation.type === 1) return true;
-      } catch (err) {}
       return false;
     };
 
-    if (isReload()) {
-      try { clearCurrentUser(); } catch (err) {}
-      // redirect back to root after clearing user data
-      window.location.href = '/';
-    }
+    if (isPageRefresh()) {
+      try {
+        clearCurrentUser();
+      } catch (err) {
+        // ignore
+      }
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+      // Only a genuine browser refresh should trigger this redirect.
+      window.location.replace('/');
+    }
   }, []);
 
   return (

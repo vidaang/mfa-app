@@ -77,6 +77,9 @@ Current tests focus on core behavior:
 - correct read/write views on the Dashboard
 - redirecting to the 404 page when errors occur
 
+### AI Usage
+I used Copilot GPT-5 mini to help develop the application. Common use cases was refactoring code in modular components, applying theming, writing unit tests, and addressing lint errors,.
+
 ## Available Scripts
 
 In the project directory, you can run:

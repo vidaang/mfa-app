@@ -1,4 +1,4 @@
-
+// App header: top app bar with search and logout
 import React from 'react'
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar'

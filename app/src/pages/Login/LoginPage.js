@@ -1,3 +1,4 @@
+// Login page: renders the sign-in form and handles input validation and navigation to MFA
 import * as React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';

@@ -1,3 +1,4 @@
+// Sign-up page: collects user name, email, and password and validates inputs
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';

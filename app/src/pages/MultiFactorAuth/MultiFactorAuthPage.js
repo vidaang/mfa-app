@@ -1,3 +1,4 @@
+// MFA page: accepts and validates a 6-digit multi-factor authentication code
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';

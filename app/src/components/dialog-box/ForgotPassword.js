@@ -1,3 +1,4 @@
+// Forgot password dialog: collects email to request a password reset
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';

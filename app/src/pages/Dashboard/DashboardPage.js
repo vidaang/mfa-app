@@ -1,3 +1,4 @@
+// Dashboard page: displays summary cards and a data table, respects user role access
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';

@@ -1,3 +1,4 @@
+// Data table: editable grid with optional row actions and inline editing
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -16,6 +17,7 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import { gray } from '../../theme/themePrimitives';
 
+// Toolbar used by the grid to add new rows when editing is enabled
 function EditToolbar(props) {
   const { setRows, setRowModesModel, canEdit } = props;
   if (!canEdit) return null;
@@ -38,6 +40,7 @@ function EditToolbar(props) {
   );
 }
 
+// Main DataTable component. Accepts row data, column headers, and edit permissions
 function DataTable({ rowsProp, headersProp, canEdit = true }) {
   const [rows, setRows] = React.useState(rowsProp || []);
   const headersToUse = headersProp ?? [];

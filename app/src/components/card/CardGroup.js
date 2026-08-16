@@ -1,3 +1,4 @@
+// Small summary cards used on the dashboard (total employees, departments, etc.)
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';

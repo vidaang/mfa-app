@@ -1,3 +1,4 @@
+// Simple 404 page shown when a route does not match any known pages
 import React from 'react';
 import { Link } from 'react-router-dom';
 

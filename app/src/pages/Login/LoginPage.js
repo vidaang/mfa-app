@@ -15,7 +15,6 @@ import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import AppTheme from '../../theme/AppTheme';
 import ForgotPassword from '../../components/dialog-box/ForgotPassword';
-import { GoogleIcon, FacebookIcon } from '../../components/icons/CustomIcons';
 import { validateEmail, validatePassword, validateSignIn } from '../../utils/inputValidation';
 import { setCurrentUserByEmail } from '../../utils/userStore';
 
@@ -182,22 +181,6 @@ export default function Login(props) {
           </Box>
           <Divider>or</Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Login with Google')}
-              startIcon={<GoogleIcon />}
-            >
-              Login with Google
-            </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Login with Facebook')}
-              startIcon={<FacebookIcon />}
-            >
-              Login with Facebook
-            </Button>
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link

@@ -32,6 +32,16 @@ export const inputsCustomizations = {
         boxShadow: 'none',
         borderRadius: (theme.vars || theme).shape.borderRadius,
         textTransform: 'none',
+        color: gray[900],
+        '&.MuiButton-loading, &.MuiButton-loading .MuiButton-loadingIndicator': {
+          color: gray[900],
+        },
+        ...theme.applyStyles('dark', {
+          color: gray[900],
+          '&.MuiButton-loading, &.MuiButton-loading .MuiButton-loadingIndicator': {
+            color: gray[900],
+          },
+        }),
         variants: [
           {
             props: {
@@ -56,7 +66,7 @@ export const inputsCustomizations = {
               variant: 'contained',
             },
             style: {
-              color: brand[500],
+              color: 'white',
               backgroundColor: gray[900],
               backgroundImage: `linear-gradient(to bottom, ${gray[700]}, ${gray[800]})`,
               boxShadow: `inset 0 1px 0 ${gray[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
@@ -92,7 +102,7 @@ export const inputsCustomizations = {
               variant: 'contained',
             },
             style: {
-              color: brand[500],
+              color: 'white',
               backgroundColor: brand[300],
               backgroundImage: `linear-gradient(to bottom, ${alpha(brand[400], 0.8)}, ${brand[500]})`,
               boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
@@ -280,7 +290,7 @@ export const inputsCustomizations = {
         borderRadius: '10px',
         boxShadow: `0 4px 16px ${alpha(gray[400], 0.2)}`,
         [`& .${toggleButtonGroupClasses.selected}`]: {
-          color: brand[500],
+          color: 'white',
         },
         ...theme.applyStyles('dark', {
           [`& .${toggleButtonGroupClasses.selected}`]: {

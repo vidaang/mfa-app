@@ -197,6 +197,22 @@ export const dataDisplayCustomizations = {
       }),
     },
   },
+  MuiDataGrid: {
+    styleOverrides: {
+      root: {
+        '& .MuiDataGrid-columnHeaders': {
+          backgroundColor: gray[700],
+          color: 'white',
+        },
+        '& .MuiDataGrid-columnHeaderTitle': {
+          fontWeight: 600,
+        },
+        '& .MuiDataGrid-columnSeparator': {
+          color: gray[600],
+        },
+      },
+    },
+  },
   MuiTablePagination: {
     styleOverrides: {
       actions: {

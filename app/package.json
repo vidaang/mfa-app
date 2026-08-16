@@ -46,6 +46,11 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^react-router-dom$": "<rootDir>/src/tests/__mocks__/react-router-dom.js"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
     "eslint": "^8.57.1",

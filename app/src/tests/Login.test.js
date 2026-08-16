@@ -18,20 +18,23 @@ describe('Login page validation', () => {
     jest.useFakeTimers();
     mockNavigate.mockClear();
     // prevent jsdom "HTMLFormElement.prototype.submit" not implemented errors
-    if (!global._origFormSubmit) global._origFormSubmit = HTMLFormElement.prototype.submit;
-    HTMLFormElement.prototype.submit = () => {};
+    global._submitSpy = jest.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {});
   });
   afterEach(() => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    HTMLFormElement.prototype.submit = global._origFormSubmit;
+    if (global._submitSpy) {
+      global._submitSpy.mockRestore();
+      global._submitSpy = null;
+    }
   });
 
   test('shows validation errors for empty inputs', async () => {
     const { container } = render(<Login />);
     const form = container.querySelector('form');
+    const submit = container.querySelector('button[type="submit"]');
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
 
@@ -49,8 +52,9 @@ describe('Login page validation', () => {
     // unknown email
     fireEvent.change(email, { target: { value: 'noone@nowhere.com' } });
     fireEvent.change(password, { target: { value: 'password111' } });
+    const submit = container.querySelector('button[type="submit"]');
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     expect(await screen.findByText('No account found with that email.')).toBeInTheDocument();
@@ -59,7 +63,7 @@ describe('Login page validation', () => {
     fireEvent.change(email, { target: { value: 'johndoe@company.com' } });
     fireEvent.change(password, { target: { value: 'badpass' } });
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     expect(await screen.findByText('Incorrect password.')).toBeInTheDocument();
@@ -68,7 +72,7 @@ describe('Login page validation', () => {
     fireEvent.change(email, { target: { value: 'janesmith@company.com' } });
     fireEvent.change(password, { target: { value: 'password222' } });
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     // valid credentials should clear error messages

@@ -13,13 +13,15 @@ describe('MFA page validation', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     mockNavigate.mockClear();
-    if (!global._origFormSubmit) global._origFormSubmit = HTMLFormElement.prototype.submit;
-    HTMLFormElement.prototype.submit = () => {};
+    global._submitSpy = jest.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {});
   });
   afterEach(() => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    HTMLFormElement.prototype.submit = global._origFormSubmit;
+    if (global._submitSpy) {
+      global._submitSpy.mockRestore();
+      global._submitSpy = null;
+    }
   });
 
   test('invalid and valid MFA codes', async () => {
@@ -28,8 +30,9 @@ describe('MFA page validation', () => {
     const form = container.querySelector('form');
 
     // empty
+    const submit = container.querySelector('button[type="submit"]');
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     expect(await screen.findByText('MFA code must be 6 digits.')).toBeInTheDocument();
@@ -37,7 +40,7 @@ describe('MFA page validation', () => {
     // invalid code
     fireEvent.change(input, { target: { value: '000000' } });
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     expect(await screen.findByText('Invalid MFA code.')).toBeInTheDocument();
@@ -45,7 +48,7 @@ describe('MFA page validation', () => {
     // valid
     fireEvent.change(input, { target: { value: '123456' } });
     act(() => {
-      fireEvent.submit(form);
+      fireEvent.click(submit);
       jest.runAllTimers();
     });
     // on valid code, no MFA error should be present
